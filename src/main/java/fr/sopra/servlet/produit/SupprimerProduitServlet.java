@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.sopra.model.Categories;
 import fr.sopra.model.Produit;
-import fr.sopra.model.EJB.GestionDesCategoriesEJB;
 import fr.sopra.model.EJB.GestionDesProduitsEJB;
 
 @WebServlet("/produit-supprimer")

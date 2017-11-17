@@ -17,6 +17,10 @@
 </head>
 <body>
 <h1>Produits</h1>
+</br>
+	<% String userConnected = (String) request.getAttribute("userConnected");%>
+<div style="color: red"><%=userConnected%></div>
+</br>
 
 <br/>
 <div>Accéder aux : 
@@ -36,7 +40,11 @@
 <br/>
 	
 	<%
-	List<Produit> p= (List<Produit>)request.getAttribute("produits");%>
+	List<Produit> p= (List<Produit>)request.getAttribute("produits");
+	int pagelistProduit = (int)request.getAttribute("pagelistProduitRetour");%>
+	<form method="get" action="produits" >
+                <input type="hidden" name="pagelistProduit" value="<%=pagelistProduit + 50%>">
+                <button>Produits suivants</button></form>
 	<table  >
 		<tr>
 			<th>Nom</th>
@@ -60,16 +68,29 @@
                 <input type="hidden" name="id" value="<%= current.getId()%>">
                 <button>Supprimer</button>
             </form></th>
+            <th><form method="post" action="commande-edition" >
+                <input type="hidden" name="produit" value="<%= current.getId()%>">
+                Entrez la quantité : <input type="text" name="quantite" />
+                <button>Commander</button>
+            </form></th>
 		</tr>
 		<%}%>
 	</table>
+	<form method="get" action="produits" >
+                <input type="hidden" name="pagelistProduit" value="<%=pagelistProduit + 50%>">
+                <button>Produits suivants</button></form>
 	<th><form method="get" action="produit-edition" >
                 <button>Nouveau produit</button></form>
+                
 <br/>
 Accéder aux : 
 <form method="get" action="categories" >
                 <button>Categories</button></form>
 <form method="get" action="fabricants" >
                 <button>Fabricants</button></form>
+                
+                </form>
+                
+                
 </body>
 </html>

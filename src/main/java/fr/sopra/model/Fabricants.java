@@ -1,7 +1,5 @@
 package fr.sopra.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,15 +39,4 @@ public class Fabricants {
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
-	
-	public Fabricants findFabricantById(List<Fabricants> list, int id) {
-		Fabricants fabricant = new Fabricants();
-		for(Fabricants current : list){
-			if(current.getId()==id){
-				fabricant=current;
-			}
-		}
-		return fabricant;
-	}
-
 }

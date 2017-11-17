@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="fr.sopra.model.Produit"%>
 <%@page import="fr.sopra.model.Categories"%>
 <%@page import="java.util.List"%>
@@ -12,6 +13,10 @@
 </head>
 <body>
 	<h1>Catégorie</h1>
+	</br>
+	<% String userConnected = (String) request.getAttribute("userConnected");%>
+<div style="color: red"><%=userConnected%></div>
+</br>
 	
 <div>	Accéder aux : 
 <form method="get" action="fabricants" >
@@ -20,8 +25,8 @@
                 <button>Produits</button></form></span></div>
 
 	<%List<Categories> c = (List<Categories>) request.getAttribute("categories");%>
-	<%List<Produit> p= (List<Produit>)request.getAttribute("produits");%>
-	<%Produit produit = new Produit(); %>
+	<%Map<Integer, Long> nombreDeProduitParCategorie = (Map<Integer, Long>)request.getAttribute("nombreDeProduitParCategorie");%>
+	<%int pagelistCategorie = (int)request.getAttribute("pagelistCategorieRetour"); %>
 	<table >
 		<tr>
 			<th>Nom</th>
@@ -32,7 +37,9 @@
 		<tr>
 			<th><%=current.getNom()%></th>
 			<th><%=current.getId()%></th>
-			<th><%=produit.findProduitByIdCat(p, current.getId()).size()%></th>
+			<th>
+				<%=nombreDeProduitParCategorie.get(current.getId()) %>
+			</th>
 			<th><form method="get" action="categorie-edition" >
                 <input type="hidden" name="id" value="<%= current.getId()%>">
                 <button>Editer</button>
@@ -45,7 +52,11 @@
 		<%}%>
 	</table>
 	<form method="get" action="categorie-edition" >
-                <button>Nouvelle categorie</button>
+                <button>Nouvelle categorie</button></form>
+                
+                <th><form method="get" action="categories" >
+                <input type="hidden" name="pagelistCategorie" value="<%=pagelistCategorie + 10%>">
+                <button>Categories suivantes</button></form>
 
 
 

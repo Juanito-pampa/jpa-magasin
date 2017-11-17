@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="fr.sopra.model.Produit"%>
 <%@page import="fr.sopra.model.Fabricants"%>
 <%@page import="java.util.List"%>
@@ -12,6 +13,10 @@
 </head>
 <body>
 <h1>Fabricants</h1>
+</br>
+	<% String userConnected = (String) request.getAttribute("userConnected");%>
+<div style="color: red"><%=userConnected%></div>
+</br>
 
 <div>Accéder aux : 
 <form method="get" action="produits" >
@@ -19,9 +24,12 @@
 <span><form method="get" action="categories" >
                 <button>Categories</button></form></span></div>
 
-	<%List<Fabricants> f = (List<Fabricants>) request.getAttribute("fabricants");%>
-	<%List<Produit> p= (List<Produit>)request.getAttribute("produits");%>
-	<%Produit produit = new Produit(); %>
+	<%
+	List<Fabricants> f = (List<Fabricants>) request.getAttribute("fabricants");
+	Map<Integer, Long> nombreDeProduitParFabricant = (Map<Integer, Long>)request.getAttribute("nombreDeProduitParFabricant");
+	int pagelistFabricant = (int)request.getAttribute("pagelistFabricantRetour"); 
+	%>
+	
 	<table >
 		<tr>
 			<th>Nom</th>
@@ -35,7 +43,7 @@
 			<th><%=current.getAdresse()%></th>
 			<th><%=current.getId()%></th>
 			<th>
-				<%=produit.findProduitByIdFab(p, current.getId()).size()%>
+				<%=nombreDeProduitParFabricant.get(current.getId()) %>
 			</th>
 			<th><form method="get" action="fabricant-edition" >
                 <input type="hidden" name="id" value="<%= current.getId()%>">
@@ -49,7 +57,11 @@
 		<%}%>
 	</table>
 	<th><form method="get" action="fabricant-edition" >
-                <button>Nouveau fabricant</button></th>
+                <button>Nouveau fabricant</button></th></form>
+                
+                <th><form method="get" action="fabricants" >
+                <input type="hidden" name="pagelistFabricant" value="<%=pagelistFabricant + 10%>">
+                <button>Fabricants suivants</button></form>
 
 
 </body>

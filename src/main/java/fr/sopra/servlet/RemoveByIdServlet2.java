@@ -1,9 +1,6 @@
 package fr.sopra.servlet;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;

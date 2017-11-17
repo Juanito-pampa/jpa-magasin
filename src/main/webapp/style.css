@@ -37,3 +37,7 @@ table {
 th {
 	border: 1px white solid;
 }
+
+button:hover {
+	color: red;
+}

@@ -8,11 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebServiceException;
 
 import fr.sopra.model.Categories;
 import fr.sopra.model.EJB.GestionDesCategoriesEJB;
-import fr.sopra.model.EJB.GestionDesProduitsEJB;
 
 @WebServlet("/categorie-edition")
 public class CategorieEditionServlet extends HttpServlet {

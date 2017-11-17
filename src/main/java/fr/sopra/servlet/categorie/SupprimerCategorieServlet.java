@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.sopra.model.Categories;
 import fr.sopra.model.EJB.GestionDesCategoriesEJB;
-import fr.sopra.model.EJB.GestionDesProduitsEJB;
 
 @WebServlet("/categorie-supprimer")
 public class SupprimerCategorieServlet extends HttpServlet{

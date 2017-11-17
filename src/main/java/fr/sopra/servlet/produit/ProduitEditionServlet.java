@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebServiceException;
 
 import fr.sopra.model.Categories;
 import fr.sopra.model.Fabricants;
@@ -33,14 +32,14 @@ public class ProduitEditionServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Produit p = null;
-		List<Categories> c = gestionDesCategoriesEJB.findAllCategorie();
-		List<Fabricants> f = gestionDesFabricantsEJB.findAllFabricants();
+		Produit produit = null;
+		List<Categories> listeCategories = gestionDesCategoriesEJB.findAllCategorie();
+		List<Fabricants> listeFabricants = gestionDesFabricantsEJB.findAllFabricants();
 		try {
 			Integer id = Integer.parseInt(req.getParameter("id"));
-			p = gestionDesProduitEJB.findByID(id);
+			produit = gestionDesProduitEJB.findByID(id);
 		} catch (Exception e) {
-			p = gestionDesProduitEJB.creerProduit(f, c);
+			produit = gestionDesProduitEJB.creerProduit(listeFabricants, listeCategories);
 		}
 		try {
 		String newNameFab = (String)req.getParameter("newNameFab");
@@ -48,22 +47,22 @@ public class ProduitEditionServlet extends HttpServlet {
 		String newNameCat = (String)req.getParameter("newNameCat");
 			if(newNameFab.length()>1 && newAdressFab.length()>1){
 				Fabricants newFab = gestionDesFabricantsEJB.ajouterFabricantsPreRempli(newNameFab, newAdressFab);
-				p.setFabriquants(newFab);
-				f.clear();
-				f.add(newFab);
+				produit.setFabriquants(newFab);
+				listeFabricants.clear();
+				listeFabricants.add(newFab);
 			if(newNameCat.length()>1){
 				Categories newCat = gestionDesCategoriesEJB.ajouterCategoriePreRemplie(newNameCat);
-				p.setCategories(newCat);
-				c.clear();
-				c.add(newCat);
+				produit.setCategories(newCat);
+				listeCategories.clear();
+				listeCategories.add(newCat);
 			}
 				
 			}
 		} catch (Exception e) {
 		}
-		req.setAttribute("produit", p);
-		req.setAttribute("categories", c);
-		req.setAttribute("fabricants",f );
+		req.setAttribute("produit", produit);
+		req.setAttribute("categories", listeCategories);
+		req.setAttribute("fabricants",listeFabricants );
 		req.getRequestDispatcher("/WEB-INF/editionProduit.jsp").forward(req, resp);
 
 	}

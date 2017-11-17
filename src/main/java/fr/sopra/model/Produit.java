@@ -1,8 +1,5 @@
 package fr.sopra.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +16,15 @@ public class Produit {
 	private Integer id;
 	
 	private String nom;
+
+	@ManyToOne(cascade=CascadeType.MERGE)
+	private Categories categories;
+	
+
+	@ManyToOne(cascade=CascadeType.MERGE)
+	private Fabricants fabriquants;
+	
+	private String reference;
 
 	
 	public Integer getId() {
@@ -60,37 +66,4 @@ public class Produit {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
-
-	@ManyToOne(cascade=CascadeType.MERGE)
-	private Categories categories;
-	
-
-	@ManyToOne(cascade=CascadeType.MERGE)
-	private Fabricants fabriquants;
-	
-	private String reference;
-	
-	public List<Produit> findProduitByIdFab(List<Produit> list, int id) {
-		List<Produit> listP = new ArrayList<>();
-		for(Produit current : list){
-			if(current.getFabriquants().getId()==id){
-				listP.add(current);
-			}
-		}
-		return listP;
-	}
-	
-	public List<Produit> findProduitByIdCat(List<Produit> list, int id) {
-		List<Produit> listP = new ArrayList<>();
-		for(Produit current : list){
-			if(current.getCategories().getId()==id){
-				listP.add(current);
-			}
-		}
-		return listP;
-	}
-
-	
-	
-
 }

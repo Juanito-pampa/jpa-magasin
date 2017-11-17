@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import fr.sopra.model.Categories;
@@ -26,6 +27,17 @@ public class GestionDesFabricantsEJB {
 	
 	public List<Fabricants> findAllFabricants(){
 		TypedQuery<Fabricants> query = em.createQuery("from " + Fabricants.class.getSimpleName(), Fabricants.class);
+		return query.getResultList();
+	}
+	
+	
+	public List<Fabricants> find10Fabricants(int number){
+		
+		Query query = em.createQuery("From Fabricants");
+		int firstFabricant = 0 + number;
+		int lastFabricant = 10 ;
+		query.setFirstResult(firstFabricant); 
+		query.setMaxResults(lastFabricant);
 		return query.getResultList();
 	}
 	
